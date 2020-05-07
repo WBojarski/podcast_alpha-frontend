@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-// import { Card } from 'primereact/card';
 import { Card, Icon } from 'semantic-ui-react'
+import { Growl } from 'primereact/growl';
+
+
 
 import '../css/search.css'
 
-// import { Card, Avatar } from 'antd';
 
 const PLAYLIST_EPISODE_URL = `http://localhost:3001/playlist_episodes`
 export default class Search extends Component {
@@ -19,6 +20,7 @@ export default class Search extends Component {
         dropdownValue: 0,
         randomEpisode: null
     }
+
 
     handleInputChange = event => {
         this.setState({ [event.target.name]: event.target.value })
@@ -43,7 +45,7 @@ export default class Search extends Component {
             body: JSON.stringify({ playlist_id: playlistId, episode_id })
         })
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(this.growl.show({ severity: 'success', summary: 'Success', detail: 'Episode added' }))
     }
 
     listenToRandom = (event) => {
@@ -138,6 +140,7 @@ export default class Search extends Component {
     render() {
         return (
             <div>
+                <Growl ref={(el) => this.growl = el} />
                 <div className="searchHeader">
                     <h3 style={{ "text-align": "center" }}>Search</h3>
                 </div>
