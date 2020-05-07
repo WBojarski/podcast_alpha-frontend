@@ -34,7 +34,19 @@ export default class Library extends Component {
             .then(data => this.setState({ playlists: [data, ...this.state.playlists], name: "", description: "" }))
 
     }
+    deletePlaylist = (playlistId) => {
 
+        fetch(`http://localhost:3001/playlists/${playlistId}`, {
+            method: "DELETE",
+            headers: {
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+        })
+            .then(resp => resp.json())
+            .then(data => this.setState({ playlists: this.state.playlists.filter(playlist => playlist.id != playlistId) }))
+        // .then(data => console.log(data))
+    }
     componentDidMount() {
         fetch(`http://localhost:3001/users/${this.props.user.id}`, {
             method: "GET",
@@ -73,7 +85,7 @@ export default class Library extends Component {
                     </form>
                 </div>
                 <div className="playlists">
-                    <PlaylistContainer playlists={this.state.playlists} />
+                    <PlaylistContainer playlists={this.state.playlists} deletePlaylist={this.deletePlaylist} />
                 </div>
             </div >
         )

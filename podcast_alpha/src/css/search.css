@@ -15,14 +15,12 @@
 }
 
 .searchForm {
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%
-}
+width: 50%;
+margin-left:25%
+} 
 
 .searchCard {
-    width: 80%;
-    margin-left:19%;
-    margin-right:10%;
+    width: 60%;
+    margin-left:20%;
     margin-bottom: 5px;
-}
+} 

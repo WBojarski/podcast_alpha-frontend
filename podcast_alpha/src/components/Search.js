@@ -16,11 +16,16 @@ export default class Search extends Component {
         searchQuery: "",
         results: [],
         playlists: [],
-        dropdownValue: 0
+        dropdownValue: 0,
+        randomEpisode: null
     }
 
     handleInputChange = event => {
         this.setState({ [event.target.name]: event.target.value })
+    }
+
+    playlistDropdown = () => {
+        return this.state.playlists.map(playlist => ({ label: playlist.name, value: playlist.id }))
     }
 
     addToPlaylist = (event, episode_id) => {
@@ -41,6 +46,41 @@ export default class Search extends Component {
             .then(data => console.log(data))
     }
 
+    listenToRandom = (event) => {
+        event.preventDefault()
+        fetch('https://listen-api.listennotes.com/api/v2/just_listen', {
+            method: "GET",
+            headers: {
+                'X-ListenAPI-Key': 'c8cef5b74ff7458ebcffe9fc99957f84'
+            }
+        })
+            .then(resp => resp.json())
+            .then(data => this.setState({ randomEpisode: data }))
+
+
+    }
+
+    renderRandomEpisode() {
+
+        return (
+            <div className="searchCard">
+                <Card
+                    image={this.state.randomEpisode.thumbnail}
+                    header={this.state.randomEpisode.podcast_title}
+                    description={<div style={{ "word-wrap": "break-word" }}> {this.state.randomEpisode.description}</div >}
+                    extra={< div style={{ "width": "100%" }}>
+                        <audio controls style={{ "width": "100%" }}>
+                            <source src={this.state.randomEpisode.audio} type="audio/ogg" />
+                        </audio>
+                        <form onSubmit={(event) => this.addToPlaylist(event, this.state.randomEpisode.id)}>
+                            <Dropdown style={{ "width": "100%" }} name="playlistId" value={this.state.dropdownValue} options={this.playlistDropdown()} onChange={(e) => { this.setState({ dropdownValue: e.value }) }} placeholder="Select a playlist" />
+                            <Button style={{ "width": "100%" }} label="Add to playlist" className="p-button-primary" />
+                        </form>
+                    </div >}
+                />
+            </div>
+        )
+    }
     componentDidMount() {
         fetch(`http://localhost:3001/users/${this.props.user.id}`, {
             method: "GET",
@@ -57,9 +97,6 @@ export default class Search extends Component {
 
     renderResults = () => {
 
-        const playlistDropdown = () => {
-            return this.state.playlists.map(playlist => ({ label: playlist.name, value: playlist.id }))
-        }
 
         return this.state.results.map(result =>
             <div className="searchCard">
@@ -72,7 +109,7 @@ export default class Search extends Component {
                             <source src={result.audio} type="audio/ogg" />
                         </audio>
                         <form onSubmit={(event) => this.addToPlaylist(event, result.id)}>
-                            <Dropdown style={{ "width": "100%" }} name="playlistId" value={this.state.dropdownValue} options={playlistDropdown()} onChange={(e) => { this.setState({ dropdownValue: e.value }) }} placeholder="Select a playlist" />
+                            <Dropdown style={{ "width": "100%" }} name="playlistId" value={this.state.dropdownValue} options={this.playlistDropdown()} onChange={(e) => { this.setState({ dropdownValue: e.value }) }} placeholder="Select a playlist" />
                             <Button style={{ "width": "100%" }} label="Add to playlist" className="p-button-primary" />
                         </form>
                     </div >}
@@ -85,7 +122,7 @@ export default class Search extends Component {
     }
 
     handleSearch = (event) => {
-        const SEARCH_URL = `https://listen-api.listennotes.com/api/v2/search?q=${this.state.searchQuery}&sort_by_date=0&type=episode&offset=0&len_min=10&len_max=99999&only_in=title%2Cdescription&language=English&safe_mode=0`
+        const SEARCH_URL = `https://listen-api.listennotes.com/api/v2/search?q=${this.state.searchQuery}&sort_by_date=1&type=episode&offset=0&len_min=10&len_max=99999&language=English&safe_mode=0`
         event.preventDefault()
         fetch(SEARCH_URL, {
             method: "GET",
@@ -102,7 +139,7 @@ export default class Search extends Component {
         return (
             <div>
                 <div className="searchHeader">
-                    <h3>Search</h3>
+                    <h3 style={{ "text-align": "center" }}>Search</h3>
                 </div>
                 <div className="searchForm">
                     <form>
@@ -111,9 +148,13 @@ export default class Search extends Component {
                             <label htmlFor="in">Enter search term</label>
                         </span>
                         <Button style={{ "width": "100%", "margin-top": "5px" }} onClick={this.handleSearch} label="Search" className="p-button-raised " />
+                        <Button onClick={this.listenToRandom} style={{ "width": "100%", "margin-top": "5px" }} label="Listen to a random podcast" className="p-button-warning" />
+
                     </form>
                 </div>
+                {this.state.randomEpisode ? this.renderRandomEpisode() : null}
                 {this.renderResults()}
+
             </div>
         )
     }
@@ -143,3 +184,38 @@ export default class Search extends Component {
                 // podcast_listennotes_url: "https://www.listennotes.com/c/b30f0c450baf4681b21637b20cb5647f/"
                 // explicit_content: false
 // link: "http://techcastdaily.com/2018/09/09/chief-accounting-officer-resigns-executive-shakeups-impressions-joe-rogan-interview-09-10-18/?utm_source=listennote
+
+//random episode
+
+// audio
+// "https://www.listennotes.com/e/p/1fc4c94f562b4dfdaf2ddebc96f7cdc3/"
+// audio_length_sec
+// 2934
+// description
+// "Steve Bannon, Jack Maxey, Jason Miller, and Raheem Kassam discuss the latest on the coronavirus pandemic as the rolling re-opening of the nation is in full effect. Eliot Rabin calls in to discuss his experience opening up his small business."
+// explicit_content
+// false
+// id
+// "1fc4c94f562b4dfdaf2ddebc96f7cdc3"
+// image
+// "https://cdn-images-1.listennotes.com/podcasts/bannons-war-room-warroomorg-RL680QF59Ef-JVtBzDmHe8I.300x300.jpg"
+// link
+// "https://listen.warroom.org/e/ep-161-pandemic-the-rolling-re-opening-w-eliot-rabin/?utm_source=listennotes.com&utm_campaign=Listen+Notes&utm_medium=website"
+// listennotes_edit_url
+// "https://www.listennotes.com/e/1fc4c94f562b4dfdaf2ddebc96f7cdc3/#edit"
+// listennotes_url
+// "https://www.listennotes.com/e/1fc4c94f562b4dfdaf2ddebc96f7cdc3/"
+// maybe_audio_invalid
+// false
+// podcast_id
+// "fa4a5d80ca30481c9e1c68c8e56680cb"
+// podcast_title
+// "Bannon's War Room"
+// pub_date_ms
+// 1588782281001
+// publisher
+// "WarRoom.org"
+// thumbnail
+// "https://cdn-images-1.listennotes.com/podcasts/bannons-war-room-warroomorg-RL680QF59Ef-JVtBzDmHe8I.300x300.jpg"
+// title
+// "Ep 161- Pandemic: The Rolling Re-Opening (w/ Eliot Rabin)"

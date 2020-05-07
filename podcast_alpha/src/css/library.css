@@ -3,14 +3,14 @@
     align-items: center;
     border: 1px solid grey;
     margin-top: 5px;
-    width: 95%;
+    width: 90%;
     height: 4rem;
     box-shadow: 2px 3px #007ad9;
     text-align: left;
 }
 .deleteButton {
     position: absolute;
-    right: 4.5rem;
+    right: 5rem;
     display: flex;
     align-items: center;
 }
@@ -36,7 +36,7 @@
     text-align: center;
 }
 .playlists {
-    width: 80%;
+    width: 85%;
     margin-right: 10%;
     margin-left: 10%
 

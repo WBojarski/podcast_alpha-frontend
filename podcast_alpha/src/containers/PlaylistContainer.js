@@ -8,7 +8,7 @@ import { Grid } from 'semantic-ui-react'
 export default class PlaylistContainer extends Component {
 
     renderPlaylists() {
-        return this.props.playlists.map(playlist => <PlaylistItem playlist={playlist} />)
+        return this.props.playlists.map(playlist => <PlaylistItem playlist={playlist} deletePlaylist={this.props.deletePlaylist} />)
     }
 
 

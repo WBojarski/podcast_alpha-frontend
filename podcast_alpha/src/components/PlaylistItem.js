@@ -14,7 +14,7 @@ export default class PlaylistItem extends Component {
                 </Link>
                 <h5 style={{ "align-items": "center", "vertical-align": "baseline" }}>{this.props.playlist.description}</h5>
                 <div className="deleteButton">
-                    <Button icon="pi pi-trash" className="p-button-danger" />
+                    <Button onClick={() => this.props.deletePlaylist(this.props.playlist.id)} icon="pi pi-trash" className="p-button-danger" />
                 </div>
             </div >
 

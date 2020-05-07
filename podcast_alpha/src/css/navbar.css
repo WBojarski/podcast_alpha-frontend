@@ -10,7 +10,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.7rem 2rem;
     overflow: hidden;
     z-index: 1;
     width: 100%; 
@@ -21,6 +20,7 @@
     background: white;
     left: auto;
     right: auto;
+    padding-left: 20%;
 
     /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25); */
     box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8),
@@ -34,6 +34,3 @@
         margin-right:10px;
     }	
 
-.p-tabmenu {
-    width: 100%;
-}
