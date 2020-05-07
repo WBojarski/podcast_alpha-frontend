@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PlaylistContainer from '../containers/PlaylistContainer'
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button'
+import '../css/library.css'
 
 const PLAYLISTS_URL = "http://localhost:3001/playlists"
 
@@ -51,24 +52,29 @@ export default class Library extends Component {
     render() {
         return (
             <div>
-                <h3>Library</h3>
+                <div className="createPlaylistHeaders">
+                    <h3>Library</h3>
 
-                <h4>Create a playlist</h4>
-                <form>
+                    <h5>Create a playlist</h5>
+                </div>
+                <div className="createPlaylist">
+                    <form>
 
-                    <span className="p-float-label">
-                        <InputText id="in" value={this.state.name} name="name" onChange={this.handleInputChange} />
-                        <label htmlFor="in">Enter playlist name</label>
-                    </span>
-                    <span className="p-float-label">
-                        <InputText id="in" value={this.state.description} name="description" onChange={this.handleInputChange} />
-                        <label htmlFor="in">Enter playlist description</label>
-                    </span>
-                    <Button onClick={this.handleSubmit} label="Create playlist" className="p-button-raised " />
+                        <span className="p-float-label">
+                            <InputText style={{ "width": "100%", "margin-bottom": "15px" }} id="in" value={this.state.name} name="name" onChange={this.handleInputChange} />
+                            <label htmlFor="in">Enter playlist name</label>
+                        </span>
+                        <span className="p-float-label">
+                            <InputText style={{ "width": "100%", "margin-bottom": "15px" }} id="in" value={this.state.description} name="description" onChange={this.handleInputChange} />
+                            <label htmlFor="in">Enter playlist description</label>
+                        </span>
+                        <Button style={{ "width": "100%" }} onClick={this.handleSubmit} label="Create playlist" className="p-button-raised " />
 
-                </form>
-
-                <PlaylistContainer playlists={this.state.playlists} />
+                    </form>
+                </div>
+                <div className="playlists">
+                    <PlaylistContainer playlists={this.state.playlists} />
+                </div>
             </div >
         )
     }

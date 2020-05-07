@@ -53,19 +53,19 @@ export default class LogInForm extends Component {
     render() {
         return (
             <div>
-                <h2>Log in</h2>
+                <h2 style={{ "text-align": "center" }}>Log in</h2>
                 <form>
 
                     <span className="p-float-label">
-                        <InputText id="in" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                        <InputText style={{ "margin-bottom": "15px", "width": "100%" }} id="in" name="username" value={this.state.username} onChange={this.handleInputChange} />
                         <label htmlFor="in">Username</label>
                     </span>
 
                     <span className="p-float-label">
-                        <InputText id="in" name="password" type="password" value={this.state.password} onChange={this.handleInputChange} />
+                        <InputText style={{ "margin-bottom": "15px", "width": "100%" }} id="in" name="password" type="password" value={this.state.password} onChange={this.handleInputChange} />
                         <label htmlFor="in">Password</label>
                     </span>
-                    <Button onClick={this.handleSubmit} label="Login" className="p-button-raised " />
+                    <Button style={{ "width": "100%" }} onClick={this.handleSubmit} label="Login" className="p-button-raised " />
 
                 </form>
             </div>

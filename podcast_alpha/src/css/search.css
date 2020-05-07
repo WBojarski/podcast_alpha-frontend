@@ -4,3 +4,25 @@
     margin: 50px;
     border: 30px;
 }
+
+.searchHeader {
+    width: 50%;
+    margin-right: 25%;
+    margin-left:25%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px
+}
+
+.searchForm {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%
+}
+
+.searchCard {
+    width: 80%;
+    margin-left:19%;
+    margin-right:10%;
+    margin-bottom: 5px;
+}

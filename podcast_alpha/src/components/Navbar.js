@@ -18,9 +18,8 @@ class Navbar extends Component {
     }
     render() {
         return (
-            <div className="navbar ">
-                <TabMenu className="p-tabmenuitem	" model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => this.setState({ activeItem: e.value })} />
-
+            <div className="navbar">
+                <TabMenu model={this.state.items} activeItem={this.state.activeItem} onTabChange={(e) => this.setState({ activeItem: e.value })} />
 
             </div>
         )

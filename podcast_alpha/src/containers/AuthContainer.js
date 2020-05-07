@@ -26,14 +26,14 @@ export default class AuthContainer extends Component {
     render() {
         return (
             <div className="main">
-                <h4>Welcome to Podcast Alpha!</h4>
-                <Button onClick={() => this.handleFormSwitch("login")} label="login" className="p-button-raised " />
-                <Button onClick={() => this.handleFormSwitch("signup")} label="signup" className="p-button-raised " />
+                <h3 style={{ "text-align": "center" }}>Welcome to Podcast Alpha!</h3>
+                <Button style={{ "width": "45%" }} onClick={() => this.handleFormSwitch("login")} label="login" className="p-button-raised " />
+                <Button style={{ "width": "45%", "margin-left": "10%" }} onClick={() => this.handleFormSwitch("signup")} label="signup" className="p-button-raised " />
 
                 {
                     this.renderForm()
                 }
-            </div>
+            </div >
         )
     }
 }

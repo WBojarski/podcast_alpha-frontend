@@ -55,8 +55,10 @@ export default class PlaylistPage extends Component {
 
         return (
             <div>
-                <h3>{this.state.name}</h3>
-                <h5>{this.state.description}</h5>
+                <div className="playlistHeaders">
+                    <h3>{this.state.name}</h3>
+                    <h5>{this.state.description}</h5>
+                </div>
                 {this.state.episodeIds.map(id => <EpisodeCard episodeId={id} removeEpisodeFromPlaylist={this.removeEpisodeFromPlaylist} />)}
             </div>
         )

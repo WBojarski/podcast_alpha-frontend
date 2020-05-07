@@ -9,6 +9,9 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
+import 'semantic-ui-css/semantic.min.css'
+
+
 import './css/main.css'
 const AUTO_LOGIN_URL = `http://localhost:3001/auto_login`
 const USER_AUTHED_URL = `http://localhost:3001/user_is_authed`

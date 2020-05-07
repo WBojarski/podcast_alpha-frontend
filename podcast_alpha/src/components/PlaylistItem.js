@@ -8,11 +8,11 @@ export default class PlaylistItem extends Component {
     render() {
         return (
 
-            <div className="cardItem">
+            <div className="myCard">
                 <Link to={`/playlists/${this.props.playlist.id}`}>
-                    <h4>{this.props.playlist.name}</h4>
+                    <h4 style={{ "align-items": "center", "vertical-align": "baseline" }}>{this.props.playlist.name}</h4>
                 </Link>
-                <h5>{this.props.playlist.description}</h5>
+                <h5 style={{ "align-items": "center", "vertical-align": "baseline" }}>{this.props.playlist.description}</h5>
                 <div className="deleteButton">
                     <Button icon="pi pi-trash" className="p-button-danger" />
                 </div>

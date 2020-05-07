@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PlaylistItem from '../components/PlaylistItem'
 import { Route } from 'react-router-dom'
+import '../css/library.css'
+import { Grid } from 'semantic-ui-react'
+
 
 export default class PlaylistContainer extends Component {
 
@@ -12,8 +15,14 @@ export default class PlaylistContainer extends Component {
     render() {
         return (
             <div>
-                <h3>My playlists</h3>
-                {this.renderPlaylists()}
+                <div className="createPlaylistHeaders">
+                    <h3 style={{ "margin-top": "10px", "margin-bottom": "10px", "text-align": "center" }}>My playlists</h3>
+                </div>
+                <div className="playlistEpisodes"></div>
+                <Grid>
+                    {this.renderPlaylists()}
+
+                </Grid>
             </div>
         )
     }
