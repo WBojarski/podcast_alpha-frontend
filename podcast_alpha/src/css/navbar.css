@@ -1,0 +1,39 @@
+.sticky {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+.navbar {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem 2rem;
+    overflow: hidden;
+    z-index: 1;
+    width: 100%; 
+    margin: auto;
+    bottom: 0;
+    border-bottom: solid 1px var(--primary-color);
+    opacity: 1;
+    background: white;
+    left: auto;
+    right: auto;
+
+    /* box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25); */
+    box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8),
+    -12px 0 8px -4px rgba(31, 73, 125, 0.8);
+    box-shadow: 0 9px 0px 0px white, 0 -9px 0px 0px white,
+    12px 0 15px -4px rgba(31, 73, 125, 0.8),
+    -12px 0 15px -4px rgba(31, 73, 125, 0.8);
+    }
+
+.p-tabmenuitem{
+        margin-right:10px;
+    }	
+
+.p-tabmenu {
+    width: 100%;
+}

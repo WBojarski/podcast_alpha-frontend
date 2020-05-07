@@ -1,0 +1,15 @@
+.cardItem{
+    display: flex;
+    align-items: center;
+    border: grey solid 1px;
+    width: 100%;
+    height: 4rem;
+    margin-top: 5px;
+    box-shadow: 2px 3px #007ad9
+}
+.deleteButton {
+    position: absolute;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+}

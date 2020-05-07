@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import SignInForm from '../components/SignInForm'
 import LoginForm from '../components/LogInForm'
+import { Button } from 'primereact/button';
+import '../css/authContainer.css'
+
 
 export default class AuthContainer extends Component {
 
@@ -11,19 +14,22 @@ export default class AuthContainer extends Component {
 
     renderForm = () => {
         switch (this.props.form) {
-            case "login":
-                return <LoginForm handleLogin={this.props.handleLogin} />
-            default:
+            case "signup":
                 return <SignInForm handleLogin={this.props.handleLogin} />
+
+            default:
+                return <LoginForm handleLogin={this.props.handleLogin} />
+
         }
     }
 
     render() {
         return (
-            <div>
+            <div className="main">
+                <h4>Welcome to Podcast Alpha!</h4>
+                <Button onClick={() => this.handleFormSwitch("login")} label="login" className="p-button-raised " />
+                <Button onClick={() => this.handleFormSwitch("signup")} label="signup" className="p-button-raised " />
 
-                <button onClick={() => this.handleFormSwitch("login")}>Login</button>
-                <button onClick={() => this.handleFormSwitch("signup")}>Signup</button>
                 {
                     this.renderForm()
                 }

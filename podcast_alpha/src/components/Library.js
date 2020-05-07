@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import PlaylistContainer from '../containers/PlaylistContainer'
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button'
 
 const PLAYLISTS_URL = "http://localhost:3001/playlists"
 
@@ -8,7 +11,7 @@ export default class Library extends Component {
     state = {
         name: "",
         description: "",
-        user_id: this.props.user.id
+        playlists: [],
     }
 
     handleInputChange = event => {
@@ -21,46 +24,51 @@ export default class Library extends Component {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({ name: this.state.name, description: this.state.description, user_id: this.props.user })
+            body: JSON.stringify({ name: this.state.name, description: this.state.description, user_id: this.props.user.id })
         })
             .then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(data => this.setState({ playlists: [data, ...this.state.playlists], name: "", description: "" }))
 
     }
 
     componentDidMount() {
         fetch(`http://localhost:3001/users/${this.props.user.id}`, {
-            method: "GET"
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(resp => resp.json())
-            // .then(data => this.renderPlaylists(data.playlists))
-            .then(data => console.log(data))
+            .then(data => this.setState({ playlists: data.playlists }))
     }
 
-    // renderPlaylists = playlists => {
-    //     return playlists.forEach(playlist =>
-    //         <div>
-    //             <h4>{playlist.name}</h4>
-    //             <h5>{playlist.description}</h5>
-    //         </div>
-    //     )
-    // }
+
     render() {
         return (
             <div>
                 <h3>Library</h3>
 
-                <h4>Playlist</h4>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Enter playlist name</label>
-                    <input type="text" name="playlistName" onChange={this.handleInputChange} />
+                <h4>Create a playlist</h4>
+                <form>
 
-                    <label>Enter playlist description</label>
-                    <input type="text" name="playlistDescription" onChange={this.handleInputChange} />
-                    <button type="submit"> Create Playlist</button>
+                    <span className="p-float-label">
+                        <InputText id="in" value={this.state.name} name="name" onChange={this.handleInputChange} />
+                        <label htmlFor="in">Enter playlist name</label>
+                    </span>
+                    <span className="p-float-label">
+                        <InputText id="in" value={this.state.description} name="description" onChange={this.handleInputChange} />
+                        <label htmlFor="in">Enter playlist description</label>
+                    </span>
+                    <Button onClick={this.handleSubmit} label="Create playlist" className="p-button-raised " />
+
                 </form>
+
+                <PlaylistContainer playlists={this.state.playlists} />
             </div >
         )
     }

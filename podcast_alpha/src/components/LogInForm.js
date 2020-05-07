@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+
+
 
 
 const LOGIN_URL = 'http://localhost:3001/login'
@@ -13,25 +17,10 @@ export default class LogInForm extends Component {
         password: ""
     }
 
-    // handleUsernameChange = event => {
-    //     this.setUsername(event.target.value)
-    // }
-
     handleInputChange = event => {
         this.setState({ [event.target.name]: event.target.value })
     }
 
-    // setUsername = (event) => {
-    //     this.setState({
-    //         username: event.target.value
-    //     })
-    // }
-
-    // setPassword = (event) => {
-    //     this.setState({
-    //         password: event.target.value
-    //     })
-    // }
 
     handleSubmit = event => {
 
@@ -65,14 +54,19 @@ export default class LogInForm extends Component {
         return (
             <div>
                 <h2>Log in</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <label>Username</label>
-                    <input name="username" value={this.state.username} onChange={this.handleInputChange} type="text" />
+                <form>
 
-                    <label>Password</label>
-                    <input name="password" value={this.state.password} onChange={this.handleInputChange} type="password" />
+                    <span className="p-float-label">
+                        <InputText id="in" name="username" value={this.state.username} onChange={this.handleInputChange} />
+                        <label htmlFor="in">Username</label>
+                    </span>
 
-                    <button type="submit"> Submit</button>
+                    <span className="p-float-label">
+                        <InputText id="in" name="password" type="password" value={this.state.password} onChange={this.handleInputChange} />
+                        <label htmlFor="in">Password</label>
+                    </span>
+                    <Button onClick={this.handleSubmit} label="Login" className="p-button-raised " />
+
                 </form>
             </div>
         )

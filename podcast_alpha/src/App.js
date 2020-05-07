@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
-import Library from './components/Library'
-import Search from './components/Search'
 import AuthContainer from './containers/AuthContainer'
 import Header from './components/Header'
+import { Redirect, Link } from 'react-router-dom';
 
+import MainApp from './components/MainApp'
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
+import './css/main.css'
 const AUTO_LOGIN_URL = `http://localhost:3001/auto_login`
 const USER_AUTHED_URL = `http://localhost:3001/user_is_authed`
 export default class App extends Component {
@@ -26,15 +30,13 @@ export default class App extends Component {
       form: form
     })
   }
-  loggedInHeader = () => {
-    if (this.state.user.username) {
-      return <h5>Logged in as {this.state.user.username}</h5>
 
-    } else {
-      return <h3>Welcome to podcast alpha!</h3>
-    }
+
+  handleLogout = () => {
+    localStorage.clear("token")
+    this.setState({ user: null })
+    return <Redirect to="/" />
   }
-
 
 
   componentDidMount() {
@@ -58,36 +60,32 @@ export default class App extends Component {
   }
 
 
-  // handleAuthClick = () => {
-  //   const token = localStorage.getItem("token")
-  //   fetch(USER_AUTHED_URL, {
-  //     headers: {
-  //       "Authorization": `Bearer ${token}`
-  //     }
-  //   })
-  //     .then(resp => resp.json())
-  //     .then(data => console.log(data))
-  // }
-
-
   render() {
     return (
       <div className="App" >
-        <div className="container">
-          {this.state.user ? <Search user={this.state.user} /> : < AuthContainer handleLogin={this.handleLogin} form={this.state.form} setForm={this.setForm} />}
+        <div className="layout-container layout-top-medium">
 
-
-          {/* <Library user={this.state.user} /> */}
-
+          {
+            this.state.user
+              ? <>
+                <MainApp user={this.state.user} handleLogout={this.handleLogout} />
+              </>
+              : < AuthContainer handleLogin={this.handleLogin} form={this.state.form} setForm={this.setForm} />
+          }
         </div>
-      </div>
+      </div >
 
     )
   }
 }
 
+// App
+//   | ___ AuthContainer
+//     | ___ MainApp
+//       | ___ NavBar
+//         | ___ < Switch >
+
+//          </Switch >
 
 
-    // return this.state.user
-// ? <MainApplicationContainer />
-// //: <AuthContainer />
+
